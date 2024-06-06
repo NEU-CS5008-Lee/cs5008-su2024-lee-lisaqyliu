@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyang@northeastern.edu
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -38,8 +38,19 @@ void selection_sort_2arr(int* source, int* dest, bool* valid)
   for (int i=0; i<LIMIT; i++) {
 
   // INSERT YOUR CODE HERE
-
+  smallest = -1; //initialize smallest to -1
+  //find the smallest element in the source array
+  for (int j=0; j<LIMIT; j++) { 
+    if (valid[j] && (smallest == -1 || source[j] < source[smallest])) {
+      smallest = j;
+    }
   }
+  //store the smallest element in the destination array
+  dest[i] = source[smallest];
+  //mark the smallest element as invalid
+  valid[smallest] = false;
+  }
+
 }
 
 
@@ -51,13 +62,21 @@ void selection_sort_1arr(int* source)
   for (int i=0; i<LIMIT; i++) {
 
   // INSERT YOUR CODE HERE
-
+    smallest = i; //initialize smallest to i
+    //find the smallest element in the source array
+    for (int j=i; j<LIMIT; j++) {
+      if (source[j] < source[smallest]) {
+        smallest = j;
+      }
+    }
+    //swap the smallest element with the current element
+    temp = source[i];
+    source[i] = source[smallest];
+    source[smallest] = temp;
   }
 }
 
-
 int main(){
-
   int source[LIMIT]; // array to hold input data values
   int dest[LIMIT];   // array to hold sorted data values
                      // use dest only if you are using two arrays
