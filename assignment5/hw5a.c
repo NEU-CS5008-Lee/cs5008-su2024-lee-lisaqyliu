@@ -1,5 +1,6 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,8 +41,46 @@ void mergeIt(
   
 
   // ADD YOUR CODE HERE
-  
-  return;
+
+    int leftSize = leftStop - leftStart + 1;
+    int rightSize = rightStop - rightStart + 1;
+    char left[leftSize]; // left array
+    char right[rightSize]; // right array
+    int i, j, k; 
+    for (i = 0; i < leftSize; i++) { // copy data into left and right arrays
+        left[i] = data[leftStart + i];
+    }
+    for (i = 0; i < rightSize; i++) { // copy data into left and right arrays
+        right[i] = data[rightStart + i];
+    }
+    i = 0; 
+    j = 0;
+    k = leftStart; 
+
+    while (i < leftSize && j < rightSize) { // merge left and right arrays
+        if (left[i] <= right[j]) {
+            data[k] = left[i];
+            i++;
+        } else {
+            data[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    // copy the remaining elements of left array
+    while (i < leftSize) {
+        data[k] = left[i];
+        i++;
+        k++;
+    }
+    // copy the remaining elements of right array
+    while (j < rightSize) {
+        data[k] = right[j];
+        j++;
+        k++;
+    }
+
 }
 
 
