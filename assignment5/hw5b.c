@@ -1,6 +1,9 @@
 // name: Qingyang Liu
 // email: liu.qingyan@northeastern.edu
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56a5c79 (upload assignment 5)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,11 +41,17 @@ char upperChar(char c){
 void quicky(char* data, int left, int right) {
 
   // ADD YOUR CODE HERE
-
   if (left < right){
     char pivot = upperChar(data[right]); // pivot is the last element
     int i = left - 1; // i is the index of the smaller element
 
+<<<<<<< HEAD
+  if (left < right){
+    char pivot = upperChar(data[right]); // pivot is the last element
+    int i = left - 1; // i is the index of the smaller element
+
+=======
+>>>>>>> 56a5c79 (upload assignment 5)
     for (int j = left; j < right; j++) { // partition the array
         if (upperChar(data[j]) <= pivot) {
             i++;
@@ -59,7 +68,11 @@ void quicky(char* data, int left, int right) {
     quicky(data, partition + 1, right); // sort the right side
 
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 56a5c79 (upload assignment 5)
 }
 
 

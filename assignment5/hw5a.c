@@ -1,6 +1,9 @@
 // name: Qingyang Liu
 // email: liu.qingyan@northeastern.edu
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56a5c79 (upload assignment 5)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,7 +44,10 @@ void mergeIt(
   
 
   // ADD YOUR CODE HERE
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56a5c79 (upload assignment 5)
     int leftSize = leftStop - leftStart + 1;
     int rightSize = rightStop - rightStart + 1;
     char left[leftSize]; // left array
