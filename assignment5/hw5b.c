@@ -1,6 +1,7 @@
 // name: Qingyang Liu
 // email: liu.qingyan@northeastern.edu
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -37,6 +38,7 @@ char upperChar(char c){
 void quicky(char* data, int left, int right) {
 
   // ADD YOUR CODE HERE
+
   if (left < right){
     char pivot = upperChar(data[right]); // pivot is the last element
     int i = left - 1; // i is the index of the smaller element
@@ -57,7 +59,7 @@ void quicky(char* data, int left, int right) {
     quicky(data, partition + 1, right); // sort the right side
 
   }
-  
+
 }
 
 
