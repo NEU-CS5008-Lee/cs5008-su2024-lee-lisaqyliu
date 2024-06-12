@@ -1,9 +1,5 @@
 // name: Qingyang Liu
 // email: liu.qingyan@northeastern.edu
-<<<<<<< HEAD
-
-=======
->>>>>>> 56a5c79 (upload assignment 5)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,38 +37,29 @@ char upperChar(char c){
 void quicky(char* data, int left, int right) {
 
   // ADD YOUR CODE HERE
-  if (left < right){
-    char pivot = upperChar(data[right]); // pivot is the last element
-    int i = left - 1; // i is the index of the smaller element
+  if (left < right) {
+    char pivot = upperChar(data[right]);  // Pivot is the last element
+    int i = left - 1;  // Index of the smaller element
 
-<<<<<<< HEAD
-  if (left < right){
-    char pivot = upperChar(data[right]); // pivot is the last element
-    int i = left - 1; // i is the index of the smaller element
-
-=======
->>>>>>> 56a5c79 (upload assignment 5)
-    for (int j = left; j < right; j++) { // partition the array
-        if (upperChar(data[j]) <= pivot) {
-            i++;
-            char temp = data[i];
-            data[i] = data[j];
-            data[j] = temp;
-        }
+    for (int j = left; j < right; j++) {  // Partition the array
+      if (upperChar(data[j]) <= pivot) {
+        i++;
+        // Inline swap data[i] and data[j]
+        char temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+      }
     }
-    char temp = data[i + 1]; // swap data[i + 1] and data[right]
-    data[i + 1] = data[right]; // put pivot in the correct position
-    data[right] = temp; 
-    int partition = i + 1; // partition is the index of the pivot
-    quicky(data, left, partition - 1); // sort the left side
-    quicky(data, partition + 1, right); // sort the right side
+    // Inline swap data[i + 1] and data[right]
+    char temp = data[i + 1];
+    data[i + 1] = data[right];
+    data[right] = temp;
+    int partition = i + 1;  // Partition index
 
+    // Recursively sort the left and right subarrays
+    quicky(data, left, partition - 1);
+    quicky(data, partition + 1, right);
   }
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 56a5c79 (upload assignment 5)
 }
 
 
