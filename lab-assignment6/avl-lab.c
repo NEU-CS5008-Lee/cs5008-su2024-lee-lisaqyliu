@@ -1,5 +1,5 @@
-/*---enter your name here----*/
-/*---enter your email here-----*/
+//Qingyang Liu
+//liu.qingyan@northeastern.edu
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -131,6 +131,17 @@ node_t* Insert(node_t* root, int data)
     
     
     //insert your code here
+    // Check if it is balance, if not, do rotation
+    if (root == NULL)
+        return NewNode(data);
+        
+    if (data < root->data) {
+        root->left = Insert(root->left, data);
+    } else if (data > root->data) {
+        root->right = Insert(root->right, data);
+    } else {
+        return root;
+    }
 
 
     /*updating the height after insertion of the node*/
