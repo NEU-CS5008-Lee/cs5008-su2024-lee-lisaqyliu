@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -237,34 +237,78 @@ void freeQueue(queue_t* qp) {
 // ========================== BEGIN INSERT FUNCTION DEFS TO WALK TREE ==========================
 // define 4 functions - preorder, inorder, postorder, breadthFirst to walk tree, printing out data (char)
 // associated with each node visited:
-// void preorder (tnode_t* np) {}
-// void inorder (tnode_t* np) {}
-// void postorder (tnode_t* np) {}
-// void breadthFirst (tnode_t* np) {}
+// void preorder (tnode_t* np) {} data, left, right
+// void inorder (tnode_t* np) {} left, data, right
+// void postorder (tnode_t* np) {} left, right, data
+// void breadthFirst (tnode_t* np) {} 
 
 void preorder (tnode_t* np) {
   // INSERT YOUR CODE HERE
-
-  return;
+  //check np is not null
+  if(np != NULL){
+    //print the data of the node
+    printf("%c", np->data);
+    //recursively call the function on the left subtree
+    preorder(np->left);
+    //recursively call the function on the right subtree
+    preorder(np->right);
+  }
 }
 
 void inorder (tnode_t* np) {
   // INSERT YOUR CODE HERE
-  
-  return;
+  //check np is not null
+  if(np != NULL){
+    //recursively call the function on the left subtree
+    inorder(np->left);
+    //print the data of the node
+    printf("%c", np->data);
+    //recursively call the function on the right subtree
+    inorder(np->right);
+  }
 }
 
 void postorder (tnode_t* np) {
   // INSERT YOUR CODE HERE
-  
-  return;
+  //check np is not null
+  if(np != NULL){
+    //recursively call the function on the left subtree
+    postorder(np->left);
+    //recursively call the function on the right subtree
+    postorder(np->right);
+    //print the data of the node
+    printf("%c", np->data);
+  }
 }
 
 
 void breadthFirst (tnode_t* root) {
   // INSERT YOUR CODE HERE
+  //check root is not null
+  if(root != NULL){
+    //create a new queue
+    queue_t* q = newQueue();
+    //enqueue the root node
+    enqueue(q, root);
+    //while the queue is not empty
+    while(!isEmpty(q)){
+      //dequeue the node
+      tnode_t* temp = dequeue(q);
+      //print the data of the node
+      printf("%c", temp->data);
+      //if the left child of the node is not null, enqueue the left child
+      if(temp->left != NULL){
+        enqueue(q, temp->left);
+      }
+      //if the right child of the node is not null, enqueue the right child
+      if(temp->right != NULL){
+        enqueue(q, temp->right);
+      }
+    }
+    //free the queue
+    freeQueue(q);
+  }
   
-  return;
 }
 
 
