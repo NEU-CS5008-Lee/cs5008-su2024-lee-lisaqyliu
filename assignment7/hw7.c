@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 
 // format of document is a bunch of data lines beginning with an integer (rank which we ignore)
 // then a ',' followed by a double-quoted string (city name)
@@ -99,6 +99,73 @@ int main () {
 
 
 	  // ADD YOUR CODE HERE
+    case S1:
+      //digit -> S1; , -> S2
+      if (isDigit(inputLine[nextChar])) {
+        appendChar(temp, inputLine[nextChar]);
+      } else if (inputLine[nextChar] == ',') {
+        state = S2;
+        lineNum = atoi(temp);  // convert rank to integer
+        strcpy(temp, "");      // reset temp for next field
+      } else {
+        state = ERRORSTATE;
+      }
+      break;
+    
+    case S2:
+      // " -> S3
+      if (inputLine[nextChar] == '"') {
+        state = S3;
+      } else {
+        state = ERRORSTATE;
+      }
+      break;
+
+    case S3:
+      // ! -> S3; " -> S4
+      if (inputLine[nextChar] != '"') {
+        appendChar(temp, inputLine[nextChar]);
+      } else {
+        state = S4;
+        strcpy(cityStr, temp); // store city name
+        strcpy(temp, "");      // reset temp for next field
+      }
+      break;
+
+    case S4:
+      // , -> S5
+      if (inputLine[nextChar] == ',') {
+        state = S5;
+      } else {
+        state = ERRORSTATE;
+      }
+      break;
+
+    case S5:
+      // " -> S6; ( -> ACCEPTSTATE
+      if (inputLine[nextChar] == '"') {
+        state = S6;
+      } else if (inputLine[nextChar] == '(') {
+        state = ACCEPTSTATE;
+        popInt = 0;  // set population to 0 for (X)
+      } else {
+        state = ERRORSTATE;
+      }
+      break;
+
+    case S6:
+      // digit -> S6; , -> S6; " -> ACCEPTSTATE
+      if (isDigit(inputLine[nextChar])) {
+        appendChar(temp, inputLine[nextChar]);
+      } else if (inputLine[nextChar] == ',' || inputLine[nextChar] == ' ') {
+        // ignore commas and spaces within population number
+      } else if (inputLine[nextChar] == '"') {
+        state = ACCEPTSTATE;
+        popInt = atoi(temp);  // convert population to integer
+      } else {
+        state = ERRORSTATE;
+      }
+      break;
  
 	    
 	  case ACCEPTSTATE:
