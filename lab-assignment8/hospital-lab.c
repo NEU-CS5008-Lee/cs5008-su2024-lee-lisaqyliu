@@ -1,6 +1,6 @@
 /* Lab Assignment for Hospital ER */
-//enter your name here
-//enter your email here
+//Qingyang Liu
+//liu.qingyan@northeastern.edu
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -49,6 +49,19 @@ void heapify(pq*p2,int n, int i ){
     int lchild=2*i+1;/*left =2*i+1*/
     int rchild=2*i+2;/*right=2*i+2*/
     /*insert your code here*/
+    //if left child is less than n and leftchild is proirity is greater than or equal to thepriority of root, then largest is the left child
+    if (lchild < n && p2->heap[lchild].priority >= p2->heap[largest].priority){
+        largest = lchild;
+    }
+    //if right child is less than n and rightchild is proirity is greater than or equal to thepriority of root, then largest is the right child
+    if (rchild < n && p2->heap[rchild].priority >= p2->heap[largest].priority){
+        largest = rchild;
+    }
+    //if largest is not the root, then swap the root with the largest and heapify the root
+    if (largest != i){
+        swap(&(p2->heap[i]), &(p2->heap[largest]));
+        heapify(p2, n, largest);
+    }
 
 }
 
@@ -56,7 +69,16 @@ void heapify(pq*p2,int n, int i ){
 void shiftUp(pq* p2,int i)
 {
     /*insert your code here*/
-       
+    // check i 
+    if (i == 0){
+        return;
+    }
+    // check if the parent is smaller than the child
+    if (p2->heap[(i-1)/2].priority < p2->heap[i].priority){
+        swap(&(p2->heap[(i-1)/2]), &(p2->heap[i]));
+        shiftUp(p2, (i-1)/2);
+    }
+     
     
 }
  
