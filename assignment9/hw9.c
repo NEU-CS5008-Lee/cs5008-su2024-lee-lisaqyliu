@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 
 
 #include <stdio.h>
@@ -227,11 +227,20 @@ int main () {
 
   printf("\nBREADTH FIRST TRAFERSAL\n");
   while (!isEmpty(q)) {
-
     // INSERT YOUR CODE HERE
-    
+    current = dequeue(q); // get the next node to process
+    if (!done[current]) { // if we haven't already done this node
+      printf("NODE: %d\n", current); // print out the node
+      done[current] = true;   // mark the node as done
+      
+      // enqueue all the neighbors of the current node
+      for (j=0; j<GSIZE; j++) {
+        if (E[current][j] && !done[j]) {
+          enqueue(q,j);
+        }
+      }  
+    }
   }
-
   // print out nodes that are unreachable
   printf("\nUNREACHABLE NODES: ");
   for (i=0; i<GSIZE; i++) {
