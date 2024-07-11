@@ -1,5 +1,5 @@
-//enter your email here
-//enter your name here
+//liu.qingyan@northeastern.edu
+//Qingyang Liu
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -51,7 +51,7 @@ int numberoflistspresent(Graph* graph)
             j++;
         }
     }
- return j;   
+    return j;   
 }
 
 /* searching the persons who are already there in the list if found,
@@ -59,7 +59,7 @@ int numberoflistspresent(Graph* graph)
 int search(char* name, Graph* graph)
 {
     int i;
-    for(i=0;i<numberOfListspresent(graph);i++){
+    for(i=0;i<numberoflistspresent(graph);i++){
         if(strcmp(graph->adjLists[i]->name,name)==0){
             return i;    //position of person in the list
         }
@@ -68,20 +68,67 @@ int search(char* name, Graph* graph)
     return -1; //person not found in the list
 }
 
+/* Check if the connection already exists */
+int connectionExists(node* head, char* name) {
+    node* temp = head;
+    while (temp != NULL) {
+        if (strcmp(temp->name, name) == 0) {
+            return 1; // Connection exists
+        }
+        temp = temp->next;
+    }
+    return 0; // Connection does not exist
+}
+
 /* adds an edge to an undirected graph */
 void addConnection(Graph* graph, char* person, char* friend){
+    // Handle edge cases for invalid inputs
+    if (person == NULL || friend == NULL || strcmp(person, "") == 0 || strcmp(friend, "") == 0) {
+        printf("Invalid person or friend name.\n");
+        return;
+    }
     int p = search(person, graph);//search for the person in the graph,index or position
     int n=numberoflistspresent(graph);
-    
-    
     
     //insert your code here
     
     
-    
-    
+    // Step 1: check if n is 0
+    if (n == 0) {
+        node* newPersonNode = createNode(person);
+        node* newFriendNode = createNode(friend);
+        // Add person to the graph
+        graph->adjLists[0] = newPersonNode;
+        // Add friend to the person's adjacency list
+        newPersonNode->next = newFriendNode;
+        return;
+    }
+
+    // Step 2: If person is found, add friend to the person's adjacency list
+    if (p >= 0) {
+        node* temp = graph->adjLists[p];
+        // Traverse to the end of the adjacency list
+        while (temp->next != NULL && strcmp(temp->next->name, friend) != 0) {
+            temp = temp->next;
+        }
+        //Only add friend if the connection does not already exist
+        if (temp->next == NULL){
+            temp->next = createNode(friend);
+        }
+    } else {
+        // Step 3: If person is not found, add person and friend to the graph
+        node* newPersonNode = createNode(person);
+        node* newFriendNode = createNode(friend);
+        graph->adjLists[n] = newPersonNode;
+        newPersonNode->next = newFriendNode;
+        n++;
+    }
+       
+
     
 }
+    
+
 
 /* function to print the adjacency list representation of a graph */
 void printGraph(Graph* graph)
@@ -98,6 +145,7 @@ void printGraph(Graph* graph)
             temp = temp->next;
         }
         printf("NULL\n");
+        
     }
 }
 
@@ -140,7 +188,7 @@ void graphDestroy(Graph *graph)
         }
     }
     free(graph->adjLists);
-        free(graph);
+    free(graph);
     }
 
 void printMatrix(int matrix[50][50], Graph* graph)
