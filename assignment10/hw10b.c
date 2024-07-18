@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 
 #include <stdio.h>
 #include <stdlib.h> 		// for qsrot
@@ -103,6 +103,30 @@ int kruskal(Fedge e[],int n) {
    qsort(e, edge_num, sizeof(Fedge), compare); // sort edges using qsort
 
    // Add Your code here
+   // Initialize the parent array
+   for (i = 0; i < VSIZE; ++i) {
+       make_set(i);
+   }
+
+   // Traverse all edges
+   for (i = 0; i < edge_num; ++i) {
+       u = find_set(e[i].u);
+       v = find_set(e[i].v);
+
+       // If u and v are not in the same set, then merge them
+       if (u != v) {
+           mst_e += e[i].key;
+           union_set(u, v);
+           mst_e_n++;
+       } else { // If u and v are in the same set, then they cause a cycle
+           printf("Edge %d and edge %d cause Cycle!!\n", e[i].u, e[i].v);
+       }
+
+       //Stop when we have n-1 edges
+         if (mst_e_n == n - 1) {
+              break;
+         }
+   }
 
    return mst_e; 
 }
@@ -125,7 +149,19 @@ int main() {
     int i,j;
 
     // Add your code here to create edge_set
+    for (i = 0; i < VSIZE; i++){
+        for (j = i + 1; j < VSIZE; j++){
+            if (graph[i][j] != 0 && graph[i][j] != INF){
+                edge_set[edge_num].key = graph[i][j];
+                edge_set[edge_num].u = i;
+                edge_set[edge_num].v = j;
+                edge_num++;
+            }
+        }
+    }
 
     mst=kruskal(edge_set, VSIZE); 
     printf("Min cost is %d.\n", mst);
+
+    return 0;
 }
