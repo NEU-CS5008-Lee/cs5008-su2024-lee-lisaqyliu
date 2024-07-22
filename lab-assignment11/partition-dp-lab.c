@@ -1,4 +1,5 @@
-
+// Qingyang Liu
+// liu.qingyan@northeastern.edu
 #include<stdio.h>
 #define MAXN 45              /* largest number of books */
 #define MAXK 10              /* largest number of dividers */
@@ -72,21 +73,36 @@ void partition(int s[], int n, int k)
     p[0] = 0;                   /* prefix sums initialised to zero*/
     for (i=1; i<=n; i++)
         p[i]=p[i-1]+s[i];
-
+    
     for (i=1; i<=n; i++)
         m[i][1] = p[i];    /* initialize boundaries (fill the first column of each rows) */
-    
+        
     for (j=1; j<=k; j++)
         m[1][j] = s[1];     /* fill the remaining values in the first row*/
-    
+        
     /* 2 to k partitions*/
+    
 
 
 
     /* Add your code here */
+    for (j = 2; j <= k; j++){
+        for (i = 2; i <= n; i++){
+            m[i][j] = MAXINT;
 
+            for (x = 1; x < i; x++){
+                int currentSum = p[i] - p[x];
+                cost = max(m[x][j - 1], currentSum);
+                
+                if (cost < m[i][j]){ // if a better partition is found
+                    m[i][j] = cost;
+                    d[i][j] = x;
+                }
 
+            }
+        }
 
+    }
     print_matrix(m,n,k);
     printf("Partition of the books are:\n");
     reconstruct_partition(s,d,n,k);        /* print book partition */
