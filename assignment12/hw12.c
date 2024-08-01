@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 // Compile with:
 //
 // gcc -lpthread hw12.c -o hw12
@@ -13,26 +13,43 @@
 // shared variable
 int counter = 0;
 
+// mutex for locking
+pthread_mutex_t lock;
+
 // thread to be executed - unspecified variable arguments
 void* thread1 (void* vargp) {
   // add 1 to counter
-  counter = counter +1;
+  pthread_mutex_lock(&lock);
+  counter += 1;
+  pthread_mutex_unlock(&lock);
   return NULL;
 }
 
 void* thread2 (void* vargp) {
   // add 5 to counter
   // *** YOUR CODE GOES HERE ***
+  pthread_mutex_lock(&lock);
+  counter += 5;
+  pthread_mutex_unlock(&lock);
+  return NULL;
 }
 
 void* thread3 (void* vargp) {
   // subtract 2 from counter
   // *** YOUR CODE GOES HERE ***
+  pthread_mutex_lock(&lock);
+  counter -= 2;
+  pthread_mutex_unlock(&lock);
+  return NULL;
 }
 
 void* thread4 (void* vargp) {
   // subtract 10 from counter
   // *** YOUR CODE GOES HERE ***
+  pthread_mutex_lock(&lock);
+  counter -= 10;
+  pthread_mutex_unlock(&lock);
+  return NULL;
 }
 
 int main() {
@@ -46,6 +63,9 @@ int main() {
   for (i=0; i < NTHREADS; ++i){
     pthread_create(&(tid[i]), NULL, thread1, NULL);
     // *** YOUR CODE GOES HERE ***
+    pthread_create(&(tid[i + NTHREADS]), NULL, thread2, NULL);   // Threads for adding 5
+    pthread_create(&(tid[i + 2 * NTHREADS]), NULL, thread3, NULL); // Threads for subtracting 2
+    pthread_create(&(tid[i + 3 * NTHREADS]), NULL, thread4, NULL); // Threads for subtracting 10
   }
 
   //wait until all threads are done
@@ -54,6 +74,9 @@ int main() {
   }
 
   printf("Counter ends at %d\n", counter);
+
+  // destroy the mutex
+  pthread_mutex_destroy(&lock);
 
   return 0;
 }
