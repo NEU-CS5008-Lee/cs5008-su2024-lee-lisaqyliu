@@ -1,5 +1,5 @@
-// name: <your name here>
-// email: <your email here>
+// name: Qingyang Liu
+// email: liu.qingyan@northeastern.edu
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,6 +52,11 @@ int getcount(char *rle)
     //
     // Add your code here to return count for the current char
     //
+    if (isdigit(*(rle + 1))){ // check is the next char is a digit
+        sscanf(rle + 1, "%d", &count); // get the number of the digit
+    } else {
+        count = 1;
+    }
 
     return count;
 }
@@ -68,6 +73,20 @@ char *decode_rle(char *rle, char *str)
     // Add your code here to decode rle
     //
     //
+    while (ptr < ptrend){
+        if (isdigit(*(ptr + 1))){ // check is the next char is a digit
+            sscanf(ptr + 1, "%d", &count); // get the number of the digit
+            digit = floor(log10(count)) + 1; // get the number of the digit
+        } else {
+            count = 1;
+            digit = 0;
+        }
+
+        for (j = 0; j < count; j++){
+            str[i++] = *ptr;
+        }
+        ptr += 1 + digit;
+    }
 
     str[i] = '\0';
     return str;
